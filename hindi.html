@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hindi FM Player</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: #ffffff;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        button {
+            display: block;
+            width: 100%;
+            margin: 10px 0;
+            padding: 15px;
+            font-size: 1.2em;
+            color: #ffffff;
+            background-color: #333;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #555;
+        }
+        audio {
+            margin-top: 20px;
+            width: 100%;
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Hindi FM Player</h1>
+
+    <button onclick="playStation('https://airhlspush.pc.cdn.bitgravity.com/httppush/hlspbaudio002/hlspbaudio002_Auto.m3u8')">Live News 24x7</button>
+    <button onclick="playStation('https://air.pc.cdn.bitgravity.com/air/live/pbaudio001/playlist.m3u8')">Vividh Bharati</button>
+    <button onclick="playStation('https://airhlspush.pc.cdn.bitgravity.com/httppush/hlspbaudioragam/hlspbaudioragam_Auto.m3u8')">Raagam</button>
+    <button onclick="playStation('https://airhlspush.pc.cdn.bitgravity.com/httppush/hlspbaudio005/hlspbaudio005_Auto.m3u8')">FM Gold Delhi</button>
+    <button onclick="playStation('https://airhlspush.pc.cdn.bitgravity.com/httppush/hlspbaudio004/hlspbaudio004_Auto.m3u8')">FM Rainbow Delhi</button>
+    <button onclick="playStation('https://airhlspush.pc.cdn.bitgravity.com/httppush/hlspbaudio006/hlspbaudio006_Auto.m3u8')">Akashvani Delhi Indraprastha</button>
+    <button onclick="playStation('https://airhlspush.pc.cdn.bitgravity.com/httppush/hlspbaudio238/hlspbaudio238_Auto.m3u8')">VBS Delhi</button>
+    <button onclick="playStation('https://air.pc.cdn.bitgravity.com/air/live/pbaudio111/playlist.m3u8')">Akashvani Chandigarh</button>
+
+    <audio id="audioPlayer" controls></audio>
+
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <script>
+        function playStation(url) {
+            const audioPlayer = document.getElementById('audioPlayer');
+            if (Hls.isSupported()) {
+                var hls = new Hls();
+                hls.loadSource(url);
+                hls.attachMedia(audioPlayer);
+                hls.on(Hls.Events.MANIFEST_PARSED, function() {
+                    audioPlayer.play();
+                });
+            } else if (audioPlayer.canPlayType('application/vnd.apple.mpegurl')) {
+                audioPlayer.src = url;
+                audioPlayer.play();
+            }
+        }
+    </script>
+
+</body>
+</html>
