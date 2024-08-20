@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MP FM Player</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: #ffffff;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        button {
+            display: block;
+            width: 100%;
+            margin: 10px 0;
+            padding: 15px;
+            font-size: 1.2em;
+            color: #ffffff;
+            background-color: #333;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #555;
+        }
+        audio {
+            margin-top: 20px;
+            width: 100%;
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>MP FM Player</h1>
+
+    <button onclick="playStation('https://air.pc.cdn.bitgravity.com/air/live/pbaudio091/playlist.m3u8')">Akashvani Balaghat</button>
+    <button onclick="playStation('https://air.pc.cdn.bitgravity.com/air/live/pbaudio108/playlist.m3u8')">Akashvani Betul</button>
+    <button onclick="playStation('https://air.pc.cdn.bitgravity.com/air/live/pbaudio146/playlist.m3u8')">Akashvani Bhopal</button>
+    <button onclick="playStation('https://air.pc.cdn.bitgravity.com/air/live/pbaudio248/playlist.m3u8')">VBS Bhopal</button>
+    <button onclick="playStation('https://air.pc.cdn.bitgravity.com/air/live/pbaudio104/playlist.m3u8')">Akashvani Chhatarpur</button>
+    <button onclick="playStation('https://air.pc.cdn.bitgravity.com/air/live/pbaudio113/playlist.m3u8')">Akashvani Chhindwara</button>
+    <button onclick="playStation('https://air.pc.cdn.bitgravity.com/air/live/pbaudio115/playlist.m3u8')">Akashvani Guna</button>
+    <button onclick="playStation('https://air.pc.cdn.bitgravity.com/air/live/pbaudio205/playlist.m3u8')">Akashvani Gwalior</button>
+    <button onclick="playStation('https://air.pc.cdn.bitgravity.com/air/live/pbaudio212/playlist.m3u8')">Akashvani Indore</button>
+    <button onclick="playStation('https://air.pc.cdn.bitgravity.com/air/live/pbaudio241/playlist.m3u8')">VBS Indore</button>
+    <button onclick="playStation('https://air.pc.cdn.bitgravity.com/air/live/pbaudio167/playlist.m3u8')">Akashvani Jabalpur</button>
+    <button onclick="playStation('https://air.pc.cdn.bitgravity.com/air/live/pbaudio240/playlist.m3u8')">Akashvani Jabalpur FM</button>
+    <button onclick="playStation('https://air.pc.cdn.bitgravity.com/air/live/pbaudio143/playlist.m3u8')">Akashvani Khandwa</button>
+    <button onclick="playStation('https://air.pc.cdn.bitgravity.com/air/live/pbaudio225/playlist.m3u8')">Akashvani Rewa</button>
+    <button onclick="playStation('https://air.pc.cdn.bitgravity.com/air/live/pbaudio204/playlist.m3u8')">Akashvani Sagar</button>
+    <button onclick="playStation('https://air.pc.cdn.bitgravity.com/air/live/pbaudio228/playlist.m3u8')">Akashvani Shahdol</button>
+    <button onclick="playStation('https://air.pc.cdn.bitgravity.com/air/live/pbaudio171/playlist.m3u8')">Akashvani Shivpuri</button>
+
+    <audio id="audioPlayer" controls></audio>
+
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <script>
+        function playStation(url) {
+            const audioPlayer = document.getElementById('audioPlayer');
+            if (Hls.isSupported()) {
+                var hls = new Hls();
+                hls.loadSource(url);
+                hls.attachMedia(audioPlayer);
+                hls.on(Hls.Events.MANIFEST_PARSED, function() {
+                    audioPlayer.play();
+                });
+            } else if (audioPlayer.canPlayType('application/vnd.apple.mpegurl')) {
+                audioPlayer.src = url;
+                audioPlayer.play();
+            }
+        }
+    </script>
+
+</body>
+</html>
