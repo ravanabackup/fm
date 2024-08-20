@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kerala FM Player</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: #ffffff;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        button {
+            display: block;
+            width: 100%;
+            margin: 10px 0;
+            padding: 15px;
+            font-size: 1.2em;
+            color: #ffffff;
+            background-color: #333;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #555;
+        }
+        audio {
+            margin-top: 20px;
+            width: 100%;
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Kerala FM Player</h1>
+
+    <button onclick="playStation('https://air.pc.cdn.bitgravity.com/air/live/pbaudio214/playlist.m3u8')">Akashvani Devikulam</button>
+    <button onclick="playStation('https://air.pc.cdn.bitgravity.com/air/live/pbaudio173/playlist.m3u8')">Akashvani Kannur</button>
+    <button onclick="playStation('https://air.pc.cdn.bitgravity.com/air/live/pbaudio044/playlist.m3u8')">FM Rainbow Kochi</button>
+    <button onclick="playStation('https://air.pc.cdn.bitgravity.com/air/live/pbaudio045/playlist.m3u8')">Akashvani Kochi</button>
+    <button onclick="playStation('https://air.pc.cdn.bitgravity.com/air/live/pbaudio082/playlist.m3u8')">Akashvani Calicut</button>
+    <button onclick="playStation('https://air.pc.cdn.bitgravity.com/air/live/pbaudio083/playlist.m3u8')">Akashvani Kozhikode Real FM</button>
+    <button onclick="playStation('https://air.pc.cdn.bitgravity.com/air/live/pbaudio101/playlist.m3u8')">Akashvani Manjeri</button>
+    <button onclick="playStation('https://air.pc.cdn.bitgravity.com/air/live/pbaudio036/playlist.m3u8')">Akashvani Trissur</button>
+    <button onclick="playStation('https://air.pc.cdn.bitgravity.com/air/live/pbaudio229/playlist.m3u8')">VB MALAYALAM</button>
+    <button onclick="playStation('https://air.pc.cdn.bitgravity.com/air/live/pbaudio230/playlist.m3u8')">Akashvani Kerala</button>
+
+    <audio id="audioPlayer" controls></audio>
+
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <script>
+        function playStation(url) {
+            const audioPlayer = document.getElementById('audioPlayer');
+            if (Hls.isSupported()) {
+                var hls = new Hls();
+                hls.loadSource(url);
+                hls.attachMedia(audioPlayer);
+                hls.on(Hls.Events.MANIFEST_PARSED, function() {
+                    audioPlayer.play();
+                });
+            } else if (audioPlayer.canPlayType('application/vnd.apple.mpegurl')) {
+                audioPlayer.src = url;
+                audioPlayer.play();
+            }
+        }
+    </script>
+
+</body>
+</html>
