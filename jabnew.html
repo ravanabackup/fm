@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MP FM Player</title>
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f4f4f4;
+            color: #333333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        header {
+            width: 100%;
+            background-color: #283593;
+            padding: 20px;
+            text-align: center;
+            color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            font-weight: 600;
+        }
+        main {
+            width: 100%;
+            max-width: 1200px;
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+        button {
+            width: 100%;
+            max-width: 250px;
+            margin: 10px;
+            padding: 15px;
+            font-size: 1.1em;
+            color: #ffffff;
+            background-color: #5c6bc0;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        button:hover {
+            background-color: #3949ab;
+            transform: translateY(-5px);
+        }
+        audio {
+            width: 100%;
+            max-width: 1000px;
+            margin-top: 30px;
+            outline: none;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        footer {
+            margin-top: 30px;
+            padding: 10px;
+            text-align: center;
+            font-size: 0.9em;
+            color: #666666;
+            border-top: 1px solid #dddddd;
+            width: 100%;
+            background-color: #f4f4f4;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header>
+        <h1>MP FM Player</h1>
+    </header>
+
+    <main>
+        <button onclick="playStation('https://air.pc.cdn.bitgravity.com/air/live/pbaudio091/playlist.m3u8')">Akashvani Balaghat</button>
+        <button onclick="playStation('https://air.pc.cdn.bitgravity.com/air/live/pbaudio108/playlist.m3u8')">Akashvani Betul</button>
+        <button onclick="playStation('https://air.pc.cdn.bitgravity.com/air/live/pbaudio146/playlist.m3u8')">Akashvani Bhopal</button>
+        <button onclick="playStation('https://air.pc.cdn.bitgravity.com/air/live/pbaudio248/playlist.m3u8')">VBS Bhopal</button>
+        <button onclick="playStation('https://air.pc.cdn.bitgravity.com/air/live/pbaudio104/playlist.m3u8')">Akashvani Chhatarpur</button>
+        <button onclick="playStation('https://air.pc.cdn.bitgravity.com/air/live/pbaudio113/playlist.m3u8')">Akashvani Chhindwara</button>
+        <button onclick="playStation('https://air.pc.cdn.bitgravity.com/air/live/pbaudio115/playlist.m3u8')">Akashvani Guna</button>
+        <button onclick="playStation('https://air.pc.cdn.bitgravity.com/air/live/pbaudio205/playlist.m3u8')">Akashvani Gwalior</button>
+        <button onclick="playStation('https://air.pc.cdn.bitgravity.com/air/live/pbaudio212/playlist.m3u8')">Akashvani Indore</button>
+        <button onclick="playStation('https://air.pc.cdn.bitgravity.com/air/live/pbaudio241/playlist.m3u8')">VBS Indore</button>
+        <button onclick="playStation('https://air.pc.cdn.bitgravity.com/air/live/pbaudio167/playlist.m3u8')">Akashvani Jabalpur</button>
+        <button onclick="playStation('https://air.pc.cdn.bitgravity.com/air/live/pbaudio240/playlist.m3u8')">Akashvani Jabalpur FM</button>
+        <button onclick="playStation('https://air.pc.cdn.bitgravity.com/air/live/pbaudio143/playlist.m3u8')">Akashvani Khandwa</button>
+        <button onclick="playStation('https://air.pc.cdn.bitgravity.com/air/live/pbaudio225/playlist.m3u8')">Akashvani Rewa</button>
+        <button onclick="playStation('https://air.pc.cdn.bitgravity.com/air/live/pbaudio204/playlist.m3u8')">Akashvani Sagar</button>
+        <button onclick="playStation('https://air.pc.cdn.bitgravity.com/air/live/pbaudio228/playlist.m3u8')">Akashvani Shahdol</button>
+        <button onclick="playStation('https://air.pc.cdn.bitgravity.com/air/live/pbaudio171/playlist.m3u8')">Akashvani Shivpuri</button>
+    </main>
+
+    <audio id="audioPlayer" controls></audio>
+
+    <footer>
+        <p>© 2024 MP FM Player | All rights reserved</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <script>
+        function playStation(url) {
+            const audioPlayer = document.getElementById('audioPlayer');
+            if (Hls.isSupported()) {
+                var hls = new Hls();
+                hls.loadSource(url);
+                hls.attachMedia(audioPlayer);
+                hls.on(Hls.Events.MANIFEST_PARSED, function() {
+                    audioPlayer.play();
+                });
+            } else if (audioPlayer.canPlayType('application/vnd.apple.mpegurl')) {
+                audioPlayer.src = url;
+                audioPlayer.play();
+            }
+        }
+    </script>
+
+</body>
+</html>
